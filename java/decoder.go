@@ -102,9 +102,9 @@ func (d *Decoder) readContent() (Content, error) {
 	//   TC_RESET
 	// nullReference:
 	//   TC_NULL
-	t, err := d.r.readByte()
+	t, err := d.r.readTypeCode()
 	if err != nil {
-		return nil, fmt.Errorf("readByte: %w", err)
+		return nil, fmt.Errorf("readTypeCode: %w", err)
 	}
 
 	switch t {
@@ -160,9 +160,9 @@ func (d *Decoder) readClassDesc() (*Class, error) {
 	//   newClassDesc
 	//   nullReference
 	//   (ClassDesc)prevObject  // an object required to be of type ClassDesc
-	t, err := d.r.readByte()
+	t, err := d.r.readTypeCode()
 	if err != nil {
-		return nil, fmt.Errorf("readByte: %w", err)
+		return nil, fmt.Errorf("readTypeCode: %w", err)
 	}
 
 	switch t {
@@ -282,11 +282,11 @@ func (d *Decoder) readField() (Field, error) {
 	// className1:
 	//   (String)object     // String containing the field's type, in field descriptor format
 	f := Field{}
-	t, err := d.r.readByte()
+	t, err := d.r.readTypeCode()
 	if err != nil {
-		return f, fmt.Errorf("readByte: %w", err)
+		return f, fmt.Errorf("readTypeCode: %w", err)
 	}
-	f.TypeCode = TypeCode(t)
+	f.TypeCode = t
 	f.FieldName, err = d.readString()
 	if err != nil {
 		return f, fmt.Errorf("d.readNewString: %w", err)
@@ -355,7 +355,7 @@ func (d *Decoder) readNewObject() (Object, error) {
 	return o, nil
 }
 
-func (d *Decoder) readClassData(classDesc *Class) (map[string]ClassData, error) {
+func (d *Decoder) readClassData(classDesc *Class) (ClassData, error) {
 	// classdata:
 	//   nowrclass                 // SC_SERIALIZABLE & classDescFlag && !(SC_WRITE_METHOD & classDescFlags)
 	//   wrclass objectAnnotation  // SC_SERIALIZABLE & classDescFlag && SC_WRITE_METHOD & classDescFlags
@@ -379,7 +379,7 @@ func (d *Decoder) readClassData(classDesc *Class) (map[string]ClassData, error) 
 		classDescs = append(classDescs, *cd)
 	}
 
-	classesData := make(map[string]ClassData)
+	classesData := make(ClassData)
 	for i := len(classDescs) - 1; i >= 0; i-- {
 		desc := classDescs[i]
 		classData := make(map[string]Value)
@@ -410,8 +410,7 @@ func (d *Decoder) readValue(t TypeCode) (Value, error) {
 	case TypeByte:
 		return d.r.readInt8()
 	case TypeChar:
-		b, err := d.r.readInt16()
-		return rune(b), err
+		return d.r.readChar()
 	case TypeDouble:
 		return d.r.readFloat64()
 	case TypeFloat:
@@ -420,14 +419,11 @@ func (d *Decoder) readValue(t TypeCode) (Value, error) {
 		i, err := d.r.readInt32()
 		return int(i), err
 	case TypeLong:
-		l, err := d.r.readInt64()
-		return l, err
+		return d.r.readInt64()
 	case TypeShort:
-		s, err := d.r.readInt16()
-		return s, err
+		return d.r.readInt16()
 	case TypeBoolean:
-		b, err := d.r.readByte()
-		return b != 0, err
+		return d.r.readBoolean()
 	case TypeArray:
 		return d.readContent()
 	case TypeObject:
@@ -447,9 +443,9 @@ func (d *Decoder) readValue(t TypeCode) (Value, error) {
 func (d *Decoder) readBlockDataShort() (blockData, error) {
 	// blockdatashort:
 	//   TC_BLOCKDATA (unsigned byte)<size> (byte)[size]
-	l, err := d.r.readByte()
+	l, err := d.r.readUint8()
 	if err != nil {
-		return nil, fmt.Errorf("readByte: %w", err)
+		return nil, fmt.Errorf("readUint8: %w", err)
 	}
 	b, err := d.r.readBytes(int64(l))
 	if err != nil {
@@ -600,19 +596,19 @@ type handle int
 const baseHandleValue = 0x7e0000
 
 const (
-	tcNull           = 0x70
-	tcReference      = 0x71
-	tcClassDesc      = 0x72
-	tcObject         = 0x73
-	tcString         = 0x74
-	tcArray          = 0x75
-	tcClass          = 0x76
-	tcBlockData      = 0x77
-	tcEndBlockData   = 0x78
-	tcReset          = 0x79
-	tcBlockDataLong  = 0x7A
-	tcException      = 0x7B
-	tcLongString     = 0x7C
-	tcProxyClassDesc = 0x7D
-	tcEnum           = 0x7E
+	tcNull           TypeCode = 0x70
+	tcReference      TypeCode = 0x71
+	tcClassDesc      TypeCode = 0x72
+	tcObject         TypeCode = 0x73
+	tcString         TypeCode = 0x74
+	tcArray          TypeCode = 0x75
+	tcClass          TypeCode = 0x76
+	tcBlockData      TypeCode = 0x77
+	tcEndBlockData   TypeCode = 0x78
+	tcReset          TypeCode = 0x79
+	tcBlockDataLong  TypeCode = 0x7A
+	tcException      TypeCode = 0x7B
+	tcLongString     TypeCode = 0x7C
+	tcProxyClassDesc TypeCode = 0x7D
+	tcEnum           TypeCode = 0x7E
 )

@@ -1,6 +1,7 @@
 package java
 
 import (
+	"fmt"
 	"strings"
 )
 
@@ -33,7 +34,7 @@ type Class struct {
 	Info             ClassDescInfo
 }
 
-type ClassData map[string]Value
+type ClassData map[string]map[string]Value
 type ClassDescFlags byte
 
 const (
@@ -74,7 +75,28 @@ type Field struct {
 
 type Object struct {
 	ClassDesc *Class
-	ClassData map[string]ClassData
+	ClassData ClassData
+}
+
+func (o Object) GetClassName() string {
+	if o.ClassDesc == nil {
+		return ""
+	}
+	return o.ClassDesc.ClassName
+}
+
+func (o Object) GetField(name string) (any, error) {
+	parts := strings.Split(name, ".")
+	last := len(parts) - 1
+	className := strings.Join(parts[0:last], ".")
+	fieldName := parts[last]
+	if fields, ok := o.ClassData[className]; ok {
+		if value, ok := fields[fieldName]; ok {
+			return value, nil
+		}
+		return nil, fmt.Errorf("%#v: %w", fieldName, ErrNoSuchField)
+	}
+	return nil, fmt.Errorf("%#v: %w", className, ErrNoSuchClass)
 }
 
 type SerialVersionUID int64

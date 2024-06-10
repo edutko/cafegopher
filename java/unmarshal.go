@@ -210,8 +210,9 @@ func unmarshalValue(javaValue Content, goValue reflect.Value) error {
 
 func getField(object Object, goType reflect.Type, index int) (Content, error) {
 	goField := goType.Field(index)
-	className, fieldName := splitTag(goField.Tag.Get("java"))
-	if className == "" {
+	fieldName := goField.Tag.Get("java")
+
+	if !strings.Contains(fieldName, ".") {
 		pkgPath := goType.PkgPath()
 		for _, p := range packagePrefixes {
 			if strings.HasPrefix(pkgPath, p) {
@@ -219,32 +220,23 @@ func getField(object Object, goType reflect.Type, index int) (Content, error) {
 				break
 			}
 		}
+
 		pkgPath = strings.TrimPrefix(pkgPath, "/")
-		className = path.Join(pkgPath, goType.Name())
-		className = strings.ReplaceAll(className, "/", ".")
+		typePath := path.Join(pkgPath, goType.Name())
+		className := strings.ReplaceAll(typePath, "/", ".")
+		if className == "" {
+			return nil, fmt.Errorf("unable to determine class name for field %#v", fieldName)
+		}
+
+		fieldName = strings.Join([]string{className, fieldName}, ".")
 	}
 
-	if className == "" {
-		return nil, fmt.Errorf("unable to determine class name for field %#v", goField.Tag.Get("java"))
-	}
-	values, exists := object.ClassData[className]
-	if !exists {
-		return nil, fmt.Errorf("%#v: %w", className, ErrNoSuchClass)
-	}
-	value, exists := values[fieldName]
-	if !exists {
-		return nil, fmt.Errorf("%#v: %w", fieldName, ErrNoSuchField)
+	value, err := object.GetField(fieldName)
+	if err != nil {
+		return nil, err
 	}
 
 	return value, nil
-}
-
-func splitTag(tag string) (class, field string) {
-	parts := strings.SplitN(tag, "/", 2)
-	if len(parts) == 1 {
-		return "", parts[0]
-	}
-	return parts[0], parts[1]
 }
 
 var packagePrefixes = []string{"github.com/edutko/cafegopher"}

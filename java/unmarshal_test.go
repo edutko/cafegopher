@@ -200,7 +200,7 @@ func TestUnmarshal_errors(t *testing.T) {
 
 	t.Run("type mismatch bool", func(t *testing.T) {
 		var actual struct {
-			Val bool `java:"com.edutko.Main$Foo/i"`
+			Val bool `java:"com.edutko.Main$Foo.i"`
 		}
 		err := Unmarshal(mustReadFile("object"), &actual)
 		assert.Equal(t, "unmarshalValue: cannot cast int to bool", err.Error())
@@ -208,7 +208,7 @@ func TestUnmarshal_errors(t *testing.T) {
 
 	t.Run("type mismatch int8", func(t *testing.T) {
 		var actual struct {
-			Val int8 `java:"com.edutko.Main$Foo/i"`
+			Val int8 `java:"com.edutko.Main$Foo.i"`
 		}
 		err := Unmarshal(mustReadFile("object"), &actual)
 		assert.Equal(t, "unmarshalValue: cannot cast int to int8", err.Error())
@@ -216,7 +216,7 @@ func TestUnmarshal_errors(t *testing.T) {
 
 	t.Run("type mismatch int16", func(t *testing.T) {
 		var actual struct {
-			Val int16 `java:"com.edutko.Main$Foo/bool"`
+			Val int16 `java:"com.edutko.Main$Foo.bool"`
 		}
 		err := Unmarshal(mustReadFile("object"), &actual)
 		assert.Equal(t, "unmarshalValue: cannot cast bool to int16", err.Error())
@@ -224,7 +224,7 @@ func TestUnmarshal_errors(t *testing.T) {
 
 	t.Run("type mismatch int", func(t *testing.T) {
 		var actual struct {
-			Val int `java:"com.edutko.Main$Foo/bool"`
+			Val int `java:"com.edutko.Main$Foo.bool"`
 		}
 		err := Unmarshal(mustReadFile("object"), &actual)
 		assert.Equal(t, "unmarshalValue: cannot cast bool to int", err.Error())
@@ -232,7 +232,7 @@ func TestUnmarshal_errors(t *testing.T) {
 
 	t.Run("type mismatch rune", func(t *testing.T) {
 		var actual struct {
-			Val rune `java:"com.edutko.Main$Foo/bool"`
+			Val rune `java:"com.edutko.Main$Foo.bool"`
 		}
 		err := Unmarshal(mustReadFile("object"), &actual)
 		assert.Equal(t, "unmarshalValue: cannot cast bool to int32", err.Error())
@@ -240,7 +240,7 @@ func TestUnmarshal_errors(t *testing.T) {
 
 	t.Run("type mismatch int64", func(t *testing.T) {
 		var actual struct {
-			Val int64 `java:"com.edutko.Main$Foo/bool"`
+			Val int64 `java:"com.edutko.Main$Foo.bool"`
 		}
 		err := Unmarshal(mustReadFile("object"), &actual)
 		assert.Equal(t, "unmarshalValue: cannot cast bool to int64", err.Error())
@@ -248,7 +248,7 @@ func TestUnmarshal_errors(t *testing.T) {
 
 	t.Run("type mismatch uint8", func(t *testing.T) {
 		var actual struct {
-			Val uint8 `java:"com.edutko.Main$Foo/i"`
+			Val uint8 `java:"com.edutko.Main$Foo.i"`
 		}
 		err := Unmarshal(mustReadFile("object"), &actual)
 		assert.Equal(t, "unmarshalValue: cannot cast int to uint8", err.Error())
@@ -256,7 +256,7 @@ func TestUnmarshal_errors(t *testing.T) {
 
 	t.Run("type mismatch uint16", func(t *testing.T) {
 		var actual struct {
-			Val uint16 `java:"com.edutko.Main$Foo/bool"`
+			Val uint16 `java:"com.edutko.Main$Foo.bool"`
 		}
 		err := Unmarshal(mustReadFile("object"), &actual)
 		assert.Equal(t, "unmarshalValue: cannot cast bool to uint16", err.Error())
@@ -264,7 +264,7 @@ func TestUnmarshal_errors(t *testing.T) {
 
 	t.Run("type mismatch uint", func(t *testing.T) {
 		var actual struct {
-			Val uint `java:"com.edutko.Main$Foo/bool"`
+			Val uint `java:"com.edutko.Main$Foo.bool"`
 		}
 		err := Unmarshal(mustReadFile("object"), &actual)
 		assert.Equal(t, "unmarshalValue: cannot cast bool to uint", err.Error())
@@ -272,7 +272,7 @@ func TestUnmarshal_errors(t *testing.T) {
 
 	t.Run("type mismatch uint32", func(t *testing.T) {
 		var actual struct {
-			Val uint32 `java:"com.edutko.Main$Foo/bool"`
+			Val uint32 `java:"com.edutko.Main$Foo.bool"`
 		}
 		err := Unmarshal(mustReadFile("object"), &actual)
 		assert.Equal(t, "unmarshalValue: cannot cast bool to uint32", err.Error())
@@ -280,7 +280,7 @@ func TestUnmarshal_errors(t *testing.T) {
 
 	t.Run("type mismatch uint64", func(t *testing.T) {
 		var actual struct {
-			Val uint64 `java:"com.edutko.Main$Foo/bool"`
+			Val uint64 `java:"com.edutko.Main$Foo.bool"`
 		}
 		err := Unmarshal(mustReadFile("object"), &actual)
 		assert.Equal(t, "unmarshalValue: cannot cast bool to uint64", err.Error())
@@ -288,7 +288,7 @@ func TestUnmarshal_errors(t *testing.T) {
 
 	t.Run("type mismatch float32", func(t *testing.T) {
 		var actual struct {
-			Val float32 `java:"com.edutko.Main$Foo/i"`
+			Val float32 `java:"com.edutko.Main$Foo.i"`
 		}
 		err := Unmarshal(mustReadFile("object"), &actual)
 		assert.Equal(t, "unmarshalValue: cannot cast int to float32", err.Error())
@@ -296,7 +296,7 @@ func TestUnmarshal_errors(t *testing.T) {
 
 	t.Run("type mismatch float64", func(t *testing.T) {
 		var actual struct {
-			Val float64 `java:"com.edutko.Main$Foo/i"`
+			Val float64 `java:"com.edutko.Main$Foo.i"`
 		}
 		err := Unmarshal(mustReadFile("object"), &actual)
 		assert.Equal(t, "unmarshalValue: cannot cast int to float64", err.Error())
@@ -304,7 +304,7 @@ func TestUnmarshal_errors(t *testing.T) {
 
 	t.Run("type mismatch array", func(t *testing.T) {
 		var actual struct {
-			Val [100]string `java:"com.edutko.Main$Foo/i"`
+			Val [100]string `java:"com.edutko.Main$Foo.i"`
 		}
 		err := Unmarshal(mustReadFile("object"), &actual)
 		assert.Equal(t, "unmarshalValue: cannot cast int to array", err.Error())
@@ -312,7 +312,7 @@ func TestUnmarshal_errors(t *testing.T) {
 
 	t.Run("type mismatch slice", func(t *testing.T) {
 		var actual struct {
-			Val []string `java:"com.edutko.Main$Foo/i"`
+			Val []string `java:"com.edutko.Main$Foo.i"`
 		}
 		err := Unmarshal(mustReadFile("object"), &actual)
 		assert.Equal(t, "unmarshalValue: cannot cast int to slice", err.Error())
@@ -320,7 +320,7 @@ func TestUnmarshal_errors(t *testing.T) {
 
 	t.Run("type mismatch string", func(t *testing.T) {
 		var actual struct {
-			Val string `java:"com.edutko.Main$Foo/i"`
+			Val string `java:"com.edutko.Main$Foo.i"`
 		}
 		err := Unmarshal(mustReadFile("object"), &actual)
 		assert.Equal(t, "unmarshalValue: cannot cast int to string", err.Error())
@@ -342,7 +342,7 @@ func TestUnmarshal_errors(t *testing.T) {
 
 	t.Run("nonexistent class", func(t *testing.T) {
 		var actual struct {
-			Val bool `java:"nonexistent/foo"`
+			Val bool `java:"nonexistent.foo"`
 		}
 		err := Unmarshal(mustReadFile("object"), &actual)
 		assert.Equal(t, `unmarshalValue: getField: "nonexistent": no such class in object`, err.Error())
@@ -350,7 +350,7 @@ func TestUnmarshal_errors(t *testing.T) {
 
 	t.Run("nonexistent field", func(t *testing.T) {
 		var actual struct {
-			Val bool `java:"com.edutko.Main$Foo/nonexistent"`
+			Val bool `java:"com.edutko.Main$Foo.nonexistent"`
 		}
 		err := Unmarshal(mustReadFile("object"), &actual)
 		assert.Equal(t, `unmarshalValue: getField: "nonexistent": no such field in object`, err.Error())
@@ -374,28 +374,28 @@ func mustReadFile(name string) []byte {
 }
 
 type foo struct {
-	B    byte    `java:"com.edutko.Main$Foo/b"`
-	Bool bool    `java:"com.edutko.Main$Foo/bool"`
-	C    rune    `java:"com.edutko.Main$Foo/c"`
-	D    float64 `java:"com.edutko.Main$Foo/d"`
-	F    float32 `java:"com.edutko.Main$Foo/f"`
-	I    int     `java:"com.edutko.Main$Foo/i"`
-	L    int64   `java:"com.edutko.Main$Foo/l"`
-	S    int16   `java:"com.edutko.Main$Foo/s"`
-	O    string  `java:"com.edutko.Main$Foo/o"`
-	A    []byte  `java:"com.edutko.Main$Foo/a"`
+	B    byte    `java:"com.edutko.Main$Foo.b"`
+	Bool bool    `java:"com.edutko.Main$Foo.bool"`
+	C    rune    `java:"com.edutko.Main$Foo.c"`
+	D    float64 `java:"com.edutko.Main$Foo.d"`
+	F    float32 `java:"com.edutko.Main$Foo.f"`
+	I    int     `java:"com.edutko.Main$Foo.i"`
+	L    int64   `java:"com.edutko.Main$Foo.l"`
+	S    int16   `java:"com.edutko.Main$Foo.s"`
+	O    string  `java:"com.edutko.Main$Foo.o"`
+	A    []byte  `java:"com.edutko.Main$Foo.a"`
 }
 
 type altfoo struct {
-	B int8   `java:"com.edutko.Main$Foo/b"`
-	I uint32 `java:"com.edutko.Main$Foo/i"`
-	L uint64 `java:"com.edutko.Main$Foo/l"`
-	S uint16 `java:"com.edutko.Main$Foo/s"`
+	B int8   `java:"com.edutko.Main$Foo.b"`
+	I uint32 `java:"com.edutko.Main$Foo.i"`
+	L uint64 `java:"com.edutko.Main$Foo.l"`
+	S uint16 `java:"com.edutko.Main$Foo.s"`
 }
 
 type sealedObject struct {
-	SealAlg          string `java:"javax.crypto.SealedObject/sealAlg"`
-	ParamsAlg        string `java:"javax.crypto.SealedObject/paramsAlg"`
-	EncryptedContent []byte `java:"javax.crypto.SealedObject/encryptedContent"`
-	EncodedParams    []byte `java:"javax.crypto.SealedObject/encodedParams"`
+	SealAlg          string `java:"javax.crypto.SealedObject.sealAlg"`
+	ParamsAlg        string `java:"javax.crypto.SealedObject.paramsAlg"`
+	EncryptedContent []byte `java:"javax.crypto.SealedObject.encryptedContent"`
+	EncodedParams    []byte `java:"javax.crypto.SealedObject.encodedParams"`
 }

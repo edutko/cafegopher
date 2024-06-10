@@ -3,6 +3,7 @@ package java
 import (
 	"encoding/binary"
 	"io"
+	"unicode/utf16"
 )
 
 type binaryReader struct {
@@ -24,6 +25,22 @@ func (r *binaryReader) readByte() (byte, error) {
 		return 0, err
 	}
 	return b[0], nil
+}
+
+func (r *binaryReader) readBoolean() (bool, error) {
+	b, err := r.readBytes(1)
+	if err != nil {
+		return false, err
+	}
+	return b[0] != 0, nil
+}
+
+func (r *binaryReader) readChar() (rune, error) {
+	u, err := r.readUint16()
+	if err != nil {
+		return 0, err
+	}
+	return utf16.Decode([]uint16{u})[0], nil
 }
 
 func (r *binaryReader) readFloat32() (float32, error) {
@@ -74,6 +91,18 @@ func (r *binaryReader) readInt64() (int64, error) {
 		return 0, err
 	}
 	return int64(binary.BigEndian.Uint64(b)), nil
+}
+
+func (r *binaryReader) readTypeCode() (TypeCode, error) {
+	t, err := r.readByte()
+	if err != nil {
+		return 0, err
+	}
+	return TypeCode(t), nil
+}
+
+func (r *binaryReader) readUint8() (uint8, error) {
+	return r.readByte()
 }
 
 func (r *binaryReader) readUint16() (uint16, error) {

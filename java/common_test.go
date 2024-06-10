@@ -5,7 +5,7 @@ import "encoding/hex"
 func javaBoolean(val bool) Object {
 	return Object{
 		ClassDesc: &javaLangBoolean,
-		ClassData: map[string]ClassData{
+		ClassData: ClassData{
 			javaLangBoolean.ClassName: {"value": val},
 		},
 	}
@@ -14,7 +14,7 @@ func javaBoolean(val bool) Object {
 func javaByte(val int8) Object {
 	return Object{
 		ClassDesc: &javaLangByte,
-		ClassData: map[string]ClassData{
+		ClassData: ClassData{
 			javaLangNumber.ClassName: {},
 			javaLangByte.ClassName:   {"value": val},
 		},
@@ -24,7 +24,7 @@ func javaByte(val int8) Object {
 func javaCharacter(val rune) Object {
 	return Object{
 		ClassDesc: &javaLangCharacter,
-		ClassData: map[string]ClassData{
+		ClassData: ClassData{
 			javaLangCharacter.ClassName: {"value": val},
 		},
 	}
@@ -33,7 +33,7 @@ func javaCharacter(val rune) Object {
 func javaDouble(val float64) Object {
 	return Object{
 		ClassDesc: &javaLangDouble,
-		ClassData: map[string]ClassData{
+		ClassData: ClassData{
 			javaLangNumber.ClassName: {},
 			javaLangDouble.ClassName: {"value": val},
 		},
@@ -43,7 +43,7 @@ func javaDouble(val float64) Object {
 func javaFloat(val float32) Object {
 	return Object{
 		ClassDesc: &javaLangFloat,
-		ClassData: map[string]ClassData{
+		ClassData: ClassData{
 			javaLangNumber.ClassName: {},
 			javaLangFloat.ClassName:  {"value": val},
 		},
@@ -53,7 +53,7 @@ func javaFloat(val float32) Object {
 func javaInteger(val int) Object {
 	return Object{
 		ClassDesc: &javaLangInteger,
-		ClassData: map[string]ClassData{
+		ClassData: ClassData{
 			javaLangNumber.ClassName:  {},
 			javaLangInteger.ClassName: {"value": val},
 		},
@@ -63,7 +63,7 @@ func javaInteger(val int) Object {
 func javaLong(val int64) Object {
 	return Object{
 		ClassDesc: &javaLangLong,
-		ClassData: map[string]ClassData{
+		ClassData: ClassData{
 			javaLangNumber.ClassName: {},
 			javaLangLong.ClassName:   {"value": val},
 		},
@@ -73,7 +73,7 @@ func javaLong(val int64) Object {
 func javaShort(val int16) Object {
 	return Object{
 		ClassDesc: &javaLangShort,
-		ClassData: map[string]ClassData{
+		ClassData: ClassData{
 			javaLangNumber.ClassName: {},
 			javaLangShort.ClassName:  {"value": val},
 		},

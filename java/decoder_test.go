@@ -20,7 +20,7 @@ func TestDeserializer_ReadContents(t *testing.T) {
 		{"enum", []Content{Enum{ClassDesc: &comEdutkoMainStatus, ConstantName: "FUBAR"}}},
 		{"int", []Content{Object{
 			ClassDesc: &javaLangInteger,
-			ClassData: map[string]ClassData{"java.lang.Number": {}, "java.lang.Integer": {"value": 456789}},
+			ClassData: ClassData{"java.lang.Number": {}, "java.lang.Integer": {"value": 456789}},
 		}}},
 		{"object", []Content{foo1}},
 		{"objects", []Content{Array{ClassDesc: &comEdutkoMainFooArray, Values: []Value{foo1, foo2, foo3}}}},
@@ -122,7 +122,7 @@ var comEdutkoMainStatus = Class{
 
 var al = Object{
 	ClassDesc: &javaUtilArrayList,
-	ClassData: map[string]ClassData{
+	ClassData: ClassData{
 		"java.util.ArrayList": {
 			"size": 4,
 			"[object annotation]": []Annotation{
@@ -138,7 +138,7 @@ var al = Object{
 
 var foo1 = Object{
 	ClassDesc: &comEdutkoMainFoo,
-	ClassData: map[string]ClassData{
+	ClassData: ClassData{
 		"com.edutko.Main$Foo": {
 			"b":    int8(0x7f),
 			"bool": true,
@@ -166,13 +166,13 @@ var foo1 = Object{
 				Values: []Value{
 					Object{
 						ClassDesc: &comEdutkoMainBar,
-						ClassData: map[string]ClassData{
+						ClassData: ClassData{
 							"com.edutko.Main$Bar": {"value": 0x1111},
 						},
 					},
 					Object{
 						ClassDesc: &comEdutkoMainBar,
-						ClassData: map[string]ClassData{
+						ClassData: ClassData{
 							"com.edutko.Main$Bar": {"value": 0x2222},
 						},
 					},
@@ -184,7 +184,7 @@ var foo1 = Object{
 
 var foo2 = Object{
 	ClassDesc: &comEdutkoMainFoo,
-	ClassData: map[string]ClassData{
+	ClassData: ClassData{
 		"com.edutko.Main$Foo": {
 			"b":    int8(0x00),
 			"bool": true,
@@ -212,13 +212,13 @@ var foo2 = Object{
 				Values: []Value{
 					Object{
 						ClassDesc: &comEdutkoMainBar,
-						ClassData: map[string]ClassData{
+						ClassData: ClassData{
 							"com.edutko.Main$Bar": {"value": 0x3333},
 						},
 					},
 					Object{
 						ClassDesc: &comEdutkoMainBar,
-						ClassData: map[string]ClassData{
+						ClassData: ClassData{
 							"com.edutko.Main$Bar": {"value": 0x4444},
 						},
 					},
@@ -230,7 +230,7 @@ var foo2 = Object{
 
 var foo3 = Object{
 	ClassDesc: &comEdutkoMainFoo,
-	ClassData: map[string]ClassData{
+	ClassData: ClassData{
 		"com.edutko.Main$Foo": {
 			"b":    int8(0x55),
 			"bool": true,
@@ -258,7 +258,7 @@ var foo3 = Object{
 				Values: []Value{
 					Object{
 						ClassDesc: &comEdutkoMainBar,
-						ClassData: map[string]ClassData{
+						ClassData: ClassData{
 							"com.edutko.Main$Bar": {"value": 0x5555},
 						},
 					},
@@ -270,7 +270,7 @@ var foo3 = Object{
 
 var secretKey = Object{
 	ClassDesc: &comSunCryptoProviderSealedObjectForKeyProtector,
-	ClassData: map[string]ClassData{
+	ClassData: ClassData{
 		"javax.crypto.SealedObject": {
 			"encodedParams": Array{
 				ClassDesc: &byteArray,
